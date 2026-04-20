@@ -1,8 +1,15 @@
-FROM alpine AS builder
+# syntax=docker/dockerfile:1
 
+FROM alpine AS builder
 ARG VERSION
 
+RUN apk add --no-cache git openssh-client
+
 WORKDIR /app
+
+RUN mkdir -p /root/.ssh && ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+RUN --mount=type=ssh git clone git@github.com:SKasStudent/pawcho6.git .
 
 RUN cat <<EOF > index.html
 <html><body>
@@ -12,7 +19,6 @@ RUN cat <<EOF > index.html
 EOF
 
 FROM nginx:alpine
-
 RUN apk add --no-cache curl
 
 COPY --from=builder /app/index.html /usr/share/nginx/html/index.html
