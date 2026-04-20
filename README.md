@@ -27,7 +27,7 @@ gh repo create pawcho6 --public --source=. --remote=origin --push
 ```
 
 ### Zbudowanie
-**Po zalogowaniu do ghcr.io i załadowaniu klucza do agenta ssh. 
+**Po zalogowaniu do ghcr.io i załadowaniu klucza do agenta ssh.** 
 ```bash
 docker buildx build --ssh default=$SSH_AUTH_SOCK --build-arg VERSION=101.587 --tag ghcr.io/skasstudent/pawcho6:lab6 --push .
 ```
